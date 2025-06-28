@@ -9,6 +9,7 @@ find_package(SDL2 REQUIRED)
 
 # Define the Engine static library
 add_library(Engine STATIC
+    src/stb_image.cpp
     src/Renderer.cpp
     #src/Texture.cpp
     #src/Engine.cpp
