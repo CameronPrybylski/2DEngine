@@ -43,5 +43,4 @@ target_link_libraries(Engine
     PRIVATE ${SDL2_LIBRARIES}
 )
 
-set(CMAKE_BUILD_TYPE Debug)
 
