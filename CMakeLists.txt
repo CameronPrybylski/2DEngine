@@ -10,9 +10,18 @@ find_package(SDL2 REQUIRED)
 # Define the Engine static library
 add_library(Engine STATIC
     src/stb_image.cpp
-    src/Renderer.cpp
-    #src/Texture.cpp
-    #src/Engine.cpp
+    src/Core/Window.cpp
+    src/Core/Input.cpp
+    src/Scene/GameObject.cpp
+    src/Scene/Scene.cpp
+    src/Renderer/Vao.cpp
+    src/Renderer/Vbo.cpp
+    src/Renderer/Ibo.cpp
+    src/Renderer/QuadMesh.cpp
+    src/Renderer/Renderer.cpp
+    src/Renderer/Shader.cpp
+    src/Renderer/Texture.cpp
+    src/Engine.cpp
     external/glad/src/glad.c
     # Add all other .cpp engine files here
 )
