@@ -9,7 +9,7 @@ public:
 
     void Update(float dt);
 
-    void Draw(Renderer& renderer);
+    void DrawQuads(Renderer& renderer);
 
     void Clear(Renderer& renderer);
 

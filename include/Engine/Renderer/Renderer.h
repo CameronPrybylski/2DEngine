@@ -11,7 +11,7 @@ class Renderer{
 public:
     Renderer();
     ~Renderer();
-    void Draw(const Mesh& mesh, const Transform& modelMatrix, Shader& shader);
+    void DrawQuad(const Mesh& mesh, const Transform& modelMatrix, Shader& shader);
     void Clear();
 
 private:

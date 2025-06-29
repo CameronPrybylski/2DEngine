@@ -10,11 +10,11 @@ void Scene::Update(float dt)
 
 }
 
-void Scene::Draw(Renderer& renderer)
+void Scene::DrawQuads(Renderer& renderer)
 {
     for(auto& obj : objects)
     {
-        renderer.Draw(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName));
+        renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName));
     }
 }
 

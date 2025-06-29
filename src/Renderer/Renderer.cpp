@@ -15,7 +15,7 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::Draw(const Mesh& mesh, const Transform& modelMatrix, Shader& shader)
+void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, Shader& shader)
 {
     //mesh.Bind();
     //checkGLError("Bind Mesh");
@@ -24,8 +24,8 @@ void Renderer::Draw(const Mesh& mesh, const Transform& modelMatrix, Shader& shad
     mesh.Bind();
     //checkGLError("Bind Mesh");
     //mesh.getIDs();
-    //shader.setUniformMat4f("u_MVP", modelMatrix.GetModelMatrix());
-    //shader.setUniform4f("u_Color", 1.0f, 0.0f, 0.0f, 0.5f);
+    shader.setUniformMat4f("u_MVP", modelMatrix.GetModelMatrix());
+    shader.setUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     //checkGLError("Draw Error");
