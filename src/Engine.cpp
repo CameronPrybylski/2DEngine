@@ -4,12 +4,11 @@
 
 Engine::Engine()
 {
-
 }
 
 Engine::~Engine()
 {
-
+    AssetManager::ClearShaders();
 }
 
 bool Engine::Create(const char* title, int w, int h)
@@ -18,18 +17,13 @@ bool Engine::Create(const char* title, int w, int h)
     {
         return false;
     }
-    auto quadMesh = std::make_shared<QuadMesh>();
-    std::shared_ptr<GameObject> object = std::make_shared<GameObject>();
-    object->mesh = quadMesh;
-    object->shaderName = "objectShader";
-    scene.AddObject(object);
-    AssetManager::LoadShader("objectShader", "../shaders/basic.vert", "../shaders/basic.frag");
-
+    
     return true;
 }
 
 void Engine::Run()
 {
+    SDL_GL_SetSwapInterval(1); 
     while(!input.ShutDown())
     {
         SDL_Event event;
@@ -37,12 +31,9 @@ void Engine::Run()
         {
             input.OnEvent(event);
         }
-        scene.Clear(renderer);
-        scene.DrawQuads(renderer);
-        //scene.Clear(renderer);
-        //glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Dark gray background
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        renderer.Clear();
+        app.GetSceneManager()->GetCurrentScene()->DrawQuads(renderer);
+        
         window.Update();
     }
 }

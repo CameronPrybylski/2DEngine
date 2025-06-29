@@ -14,6 +14,8 @@ add_library(Engine STATIC
     src/Core/Input.cpp
     src/Scene/GameObject.cpp
     src/Scene/Scene.cpp
+    src/Scene/Application.cpp
+    src/Scene/SceneManager.cpp
     src/Renderer/Vao.cpp
     src/Renderer/Vbo.cpp
     src/Renderer/Ibo.cpp
@@ -40,3 +42,6 @@ target_include_directories(Engine
 target_link_libraries(Engine
     PRIVATE ${SDL2_LIBRARIES}
 )
+
+set(CMAKE_BUILD_TYPE Debug)
+

@@ -43,6 +43,8 @@ bool Window::Init(const char* title, int width, int height)
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        this->width = width;
+        this->height = height;
         return true;
     }
     else
@@ -55,6 +57,7 @@ bool Window::Init(const char* title, int width, int height)
 void Window::Update()
 {
     SDL_GL_SwapWindow(window);
+    SDL_Delay(16);
 }
 
 bool Window::ShutDown()

@@ -11,8 +11,9 @@ public:
 
     void DrawQuads(Renderer& renderer);
 
-    void Clear(Renderer& renderer);
+    void SetOrthoProjMat(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 
 private:
     std::vector<std::shared_ptr<GameObject>> objects;
+    glm::mat4 projection;
 };

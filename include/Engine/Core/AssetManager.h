@@ -28,7 +28,7 @@ public:
     }
 
     static void ClearMeshes() {
-        meshes.clear(); // optionally call Delete() on each Shader
+        meshes.clear(); 
     }
 
 private:

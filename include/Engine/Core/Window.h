@@ -14,9 +14,15 @@ public:
     bool ShutDown();
     bool PollEvent(SDL_Event& event);
 
+    int getWidth(){return width;}
+    int getHeight(){return height;}
+
 private:
     SDL_Window* window;
     SDL_GLContext glContext;
+
+    int width;
+    int height;
 
     bool shouldClose = false;
 

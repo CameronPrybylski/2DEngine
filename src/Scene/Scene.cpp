@@ -14,11 +14,11 @@ void Scene::DrawQuads(Renderer& renderer)
 {
     for(auto& obj : objects)
     {
-        renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName));
+        renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
 }
 
-void Scene::Clear(Renderer& renderer)
+void Scene::SetOrthoProjMat(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
 {
-    renderer.Clear();
+    projection = glm::ortho(minX, maxX, minY, maxY,  minZ, maxZ);
 }
