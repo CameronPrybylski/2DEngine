@@ -12,6 +12,7 @@ add_library(Engine STATIC
     src/stb_image.cpp
     src/Core/Window.cpp
     src/Core/Input.cpp
+    src/Physics/PhysicsSystem.cpp
     src/Scene/GameObject.cpp
     src/Scene/Scene.cpp
     src/Scene/Application.cpp

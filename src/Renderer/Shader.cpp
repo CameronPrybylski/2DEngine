@@ -80,7 +80,8 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 
 }
 
-Shader::~Shader(){
+Shader::~Shader()
+{
 	glDeleteProgram(ID);
 }
 

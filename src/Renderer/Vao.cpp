@@ -6,6 +6,7 @@ Vao::Vao()
 
 Vao::~Vao()
 {
+    glDeleteVertexArrays(1, &ID);
 }
 
 void Vao::Create()

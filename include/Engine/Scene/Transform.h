@@ -19,3 +19,9 @@ public:
         return model;
     }
 };
+
+struct RigidBodyComponent{
+    glm::vec3 velocity;
+    float mass;
+    bool isStatic = true;
+};

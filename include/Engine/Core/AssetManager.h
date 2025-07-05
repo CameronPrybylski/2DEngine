@@ -23,8 +23,8 @@ public:
         return *meshes[name];
     }
 
-    static Mesh& GetMesh(const std::string& name) {
-        return *meshes.at(name);
+    static std::shared_ptr<Mesh> GetMesh(const std::string& name) {
+        return meshes.at(name);
     }
 
     static void ClearMeshes() {

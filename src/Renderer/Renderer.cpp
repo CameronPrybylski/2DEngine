@@ -15,7 +15,7 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, Shader& shader, glm::mat4 projection)
+void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, Shader& shader, glm::mat4 projection, glm::vec4 color)
 {
     //mesh.Bind();
     //checkGLError("Bind Mesh");
@@ -26,7 +26,7 @@ void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, Shader& 
     //mesh.getIDs();
     glm::mat4 mvp = projection * modelMatrix.GetModelMatrix();
     shader.setUniformMat4f("u_MVP", mvp);
-    shader.setUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
+    shader.setUniform4f("u_Color", color.x, color.y, color.z, color.w);
     
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     //checkGLError("Draw Error");

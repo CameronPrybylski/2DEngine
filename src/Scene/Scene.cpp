@@ -1,20 +1,40 @@
+#include <SDL.h>
 #include <Engine/Scene/Scene.h>
 
-void Scene::AddObject(std::shared_ptr<GameObject> object)
+void Scene::AddObject(std::string nameOfObject, std::shared_ptr<GameObject> object)
 {
-    objects.push_back(object);
-}
-
-void Scene::Update(float dt)
-{
-
-}
-
-void Scene::DrawQuads(Renderer& renderer)
-{
-    for(auto& obj : objects)
+    if(objectMap.find(nameOfObject) != objectMap.end())
     {
-        renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
+        std::cerr << "Object named " + nameOfObject + "Already Exists" << std::endl;
+        return;
+    }
+    objectMap[nameOfObject] = object;
+    objectList.push_back(object);
+}
+
+void Scene::OnEvent(const Input& input)
+{
+    for(auto& obj : objectList)
+    {
+        obj->OnEvent(input);
+    }
+}
+
+void Scene::OnUpdate(float dt)
+{
+    for(auto& obj : objectList)
+    {
+        obj->Update(dt);
+    }
+
+}
+
+void Scene::DrawObjects(Renderer& renderer)
+{
+    for(auto& obj : objectList)
+    {
+        obj->Render(renderer, projection);
+        //renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
 }
 

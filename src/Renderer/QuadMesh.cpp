@@ -32,4 +32,5 @@ QuadMesh::QuadMesh()
 
 QuadMesh::~QuadMesh()
 {
+    
 }

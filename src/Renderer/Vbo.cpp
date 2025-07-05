@@ -2,7 +2,10 @@
 
 Vbo::Vbo(){}
 
-Vbo::~Vbo(){}
+Vbo::~Vbo()
+{
+    glDeleteBuffers(1, &ID);
+}
 
 void Vbo::Create(std::vector<float> vertices)
 {

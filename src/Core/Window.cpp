@@ -57,7 +57,6 @@ bool Window::Init(const char* title, int width, int height)
 void Window::Update()
 {
     SDL_GL_SwapWindow(window);
-    SDL_Delay(16);
 }
 
 bool Window::ShutDown()
