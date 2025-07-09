@@ -22,6 +22,7 @@ public:
 
 struct RigidBodyComponent{
     glm::vec3 velocity;
+    glm::vec3 previousPosition;
     float mass;
     bool isStatic = true;
 };

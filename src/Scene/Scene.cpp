@@ -10,20 +10,30 @@ void Scene::AddObject(std::string nameOfObject, std::shared_ptr<GameObject> obje
     }
     objectMap[nameOfObject] = object;
     objectList.push_back(object);
+    if(object->rigidBody.isStatic)
+    {
+        staticObjects.push_back(object);
+    }else{
+        dynamicObjects.push_back(object);
+    }
 }
 
 void Scene::OnEvent(const Input& input)
-{
+{   
     for(auto& obj : objectList)
     {
         obj->OnEvent(input);
     }
 }
 
-void Scene::OnUpdate(float dt)
+void Scene::OnUpdate(PhysicsSystem& physics, float dt)
 {
     for(auto& obj : objectList)
     {
+        if(!obj->rigidBody.isStatic)
+        {
+            //physics.OnUpdate(obj->transform, obj->rigidBody, dt);
+        }
         obj->Update(dt);
     }
 

@@ -5,7 +5,11 @@
 Engine::Engine()
 {
     sceneManager = std::make_shared<SceneManager>();
-    physics.Init({0.0f, -981.0f, 0.0f});
+    glm::vec3 gravity;
+    gravity.x = 0.0f;
+    gravity.y = -981.0f;
+    gravity.z = 0.0f;
+    physics.Init(gravity);
 }
 
 Engine::~Engine()
@@ -32,7 +36,7 @@ void Engine::OnEvent(const SDL_Event& event)
 
 void Engine::OnUpdate(float dt)
 {
-    sceneManager->GetCurrentScene()->OnUpdate(dt);
+    sceneManager->GetCurrentScene()->OnUpdate(physics, dt);
 }
 
 void Engine::Render()

@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <Engine/Core/Input.h>
+#include <Engine/Physics/PhysicsSystem.h>
 #include<Engine/Scene/GameObject.h>
 #include<Engine/Renderer/Renderer.h>
 
@@ -11,7 +12,7 @@ public:
 
     virtual void OnEvent(const Input& input);
 
-    virtual void OnUpdate(float dt);
+    virtual void OnUpdate(PhysicsSystem& physics, float dt);
 
     virtual void DrawObjects(Renderer& renderer);
 
@@ -20,5 +21,7 @@ public:
 protected:
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;
+    std::vector<std::shared_ptr<GameObject>> dynamicObjects;
+    std::vector<std::shared_ptr<GameObject>> staticObjects;
     glm::mat4 projection;
 };
