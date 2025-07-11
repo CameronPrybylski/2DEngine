@@ -13,7 +13,7 @@ public:
     void Unbind()const;
     void Delete();
     unsigned int getID() const {return ID;}
-    int GetIndexCount(){return indexCount;}
+    int GetIndexCount() const {return indexCount;}
 
 private:
     unsigned int ID;

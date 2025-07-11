@@ -29,6 +29,8 @@ public:
         std::cout << vao.getID() << " " << vbo.getID() << " " << ibo.getID() << std::endl;
     }
 
+    int GetIndexCount() const {return ibo.GetIndexCount();}
+
 protected:
     Vao vao;
     Vbo vbo;

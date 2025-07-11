@@ -3,8 +3,9 @@
 #include <SDL.h>
 #include <Engine/Core/Input.h>
 #include <Engine/Physics/PhysicsSystem.h>
-#include<Engine/Scene/GameObject.h>
-#include<Engine/Renderer/Renderer.h>
+#include <Engine/Scene/GameObject.h>
+#include <Engine/Scene/Camera.h>
+#include <Engine/Renderer/Renderer.h>
 
 class Scene {
 public: 
@@ -12,7 +13,7 @@ public:
 
     virtual void OnEvent(const Input& input);
 
-    virtual void OnUpdate(PhysicsSystem& physics, float dt);
+    virtual void OnUpdate(const Input& input, PhysicsSystem& physics, float dt);
 
     virtual void DrawObjects(Renderer& renderer);
 
@@ -24,4 +25,5 @@ protected:
     std::vector<std::shared_ptr<GameObject>> dynamicObjects;
     std::vector<std::shared_ptr<GameObject>> staticObjects;
     glm::mat4 projection;
+    Camera camera;
 };

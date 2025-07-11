@@ -12,7 +12,8 @@ public:
 
     virtual void OnEvent(const Input& input);
     virtual void Update(float dt);
-    virtual void Render(Renderer& renderer, glm::mat4 projection);
+    virtual void Update(const Input& input, float dt);
+    virtual void Render(Renderer& renderer, glm::mat4 projection, const Camera& camera);
 
     std::shared_ptr<Mesh> mesh;
     Transform transform;

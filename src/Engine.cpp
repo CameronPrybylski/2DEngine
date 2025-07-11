@@ -36,7 +36,7 @@ void Engine::OnEvent(const SDL_Event& event)
 
 void Engine::OnUpdate(float dt)
 {
-    sceneManager->GetCurrentScene()->OnUpdate(physics, dt);
+    sceneManager->GetCurrentScene()->OnUpdate(input, physics, dt);
 }
 
 void Engine::Render()
@@ -72,8 +72,11 @@ void Engine::Run()
         {
             OnEvent(event);
         }
+
         if(dt > 0.016)
+        {
             dt = 0.016;
+        }
 
         OnUpdate(dt);
         Render();

@@ -26,7 +26,7 @@ void Scene::OnEvent(const Input& input)
     }
 }
 
-void Scene::OnUpdate(PhysicsSystem& physics, float dt)
+void Scene::OnUpdate(const Input& input, PhysicsSystem& physics, float dt)
 {
     for(auto& obj : objectList)
     {
@@ -43,7 +43,7 @@ void Scene::DrawObjects(Renderer& renderer)
 {
     for(auto& obj : objectList)
     {
-        obj->Render(renderer, projection);
+        obj->Render(renderer, projection, camera);
         //renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
 }
