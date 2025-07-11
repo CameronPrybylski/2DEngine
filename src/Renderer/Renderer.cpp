@@ -17,19 +17,14 @@ Renderer::~Renderer()
 
 void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::mat4 projection, glm::vec4 color)
 {
-    //mesh.Bind();
-    //checkGLError("Bind Mesh");
     shader.Bind();
-    //checkGLError("Bind Shader");
     mesh.Bind();
-    //checkGLError("Bind Mesh");
-    //mesh.getIDs();
+
     glm::mat4 mvp = projection * camera.GetViewMatrix() * modelMatrix.GetModelMatrix();
     shader.setUniformMat4f("u_MVP", mvp);
     shader.setUniform4f("u_Color", color.x, color.y, color.z, color.w);
     
     glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
-    //checkGLError("Draw Error");
 }
 
 void Renderer::Clear()
