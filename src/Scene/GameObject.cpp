@@ -25,7 +25,7 @@ void GameObject::Update(const Input& input, float dt)
     
 }
 
-void GameObject::Render(Renderer &renderer, glm::mat4 projection, const Camera& camera)
+void GameObject::Render(Renderer &renderer, const Camera& camera)
 {
 
 }

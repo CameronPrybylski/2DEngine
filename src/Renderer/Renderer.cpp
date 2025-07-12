@@ -15,12 +15,12 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::mat4 projection, glm::vec4 color)
+void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::vec4 color)
 {
     shader.Bind();
     mesh.Bind();
 
-    glm::mat4 mvp = projection * camera.GetViewMatrix() * modelMatrix.GetModelMatrix();
+    glm::mat4 mvp = camera.pv * modelMatrix.GetModelMatrix();
     shader.setUniformMat4f("u_MVP", mvp);
     shader.setUniform4f("u_Color", color.x, color.y, color.z, color.w);
     
