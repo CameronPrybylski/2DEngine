@@ -12,7 +12,7 @@ class Renderer{
 public:
     Renderer();
     ~Renderer();
-    void DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::mat4 projection, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
+    void DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
     void Clear();
 
 private:

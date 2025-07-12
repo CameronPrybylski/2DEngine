@@ -17,13 +17,10 @@ public:
 
     virtual void DrawObjects(Renderer& renderer);
 
-    void SetOrthoProjMat(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
-
 protected:
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;
     std::vector<std::shared_ptr<GameObject>> dynamicObjects;
     std::vector<std::shared_ptr<GameObject>> staticObjects;
-    glm::mat4 projection;
     Camera camera;
 };

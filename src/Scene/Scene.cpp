@@ -43,12 +43,7 @@ void Scene::DrawObjects(Renderer& renderer)
 {
     for(auto& obj : objectList)
     {
-        obj->Render(renderer, projection, camera);
+        obj->Render(renderer, camera);
         //renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
-}
-
-void Scene::SetOrthoProjMat(float minX, float maxX, float minY, float maxY, float minZ, float maxZ)
-{
-    projection = glm::ortho(minX, maxX, minY, maxY,  minZ, maxZ);
 }
