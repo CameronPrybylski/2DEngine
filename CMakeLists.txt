@@ -13,6 +13,7 @@ add_library(Engine STATIC
     src/Core/Window.cpp
     src/Core/Input.cpp
     src/Physics/PhysicsSystem.cpp
+    src/Scene/Camera.cpp
     src/Scene/GameObject.cpp
     src/Scene/Scene.cpp
     src/Scene/Application.cpp
