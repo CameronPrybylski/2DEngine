@@ -17,3 +17,8 @@ Scene* SceneManager::GetCurrentScene()
 {
     return currentScene;
 }
+
+bool SceneManager::CheckEndScene()
+{
+    return currentScene->CheckEndScene();
+}

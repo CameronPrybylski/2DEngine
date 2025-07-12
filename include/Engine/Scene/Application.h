@@ -12,6 +12,8 @@ public:
 
     Engine& GetEngine(){return engine;}
 
+    void AddScene(std::string sceneName, std::shared_ptr<Scene> scene);
+
 private:
     //std::shared_ptr<SceneManager> sceneManager;
     Engine engine;

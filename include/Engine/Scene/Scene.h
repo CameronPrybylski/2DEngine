@@ -17,7 +17,15 @@ public:
 
     virtual void DrawObjects(Renderer& renderer);
 
+    virtual void EndScene(std::string nextScene);
+
+    virtual bool CheckEndScene(){return endScene;}
+
+    virtual std::string GetNextScene(){return nextScene;}
+
 protected:
+    bool endScene = false;
+    std::string nextScene;
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;
     std::vector<std::shared_ptr<GameObject>> dynamicObjects;
