@@ -8,7 +8,7 @@ public:
     glm::vec3 viewPosition{0.0f};
     glm::vec3 viewRotation{0.0f};
     glm::mat4 projection;
-    glm::mat4 pv;
+    glm::mat4 vp;
 
     glm::mat4 GetViewMatrix() const {
         glm::mat4 view = glm::mat4(1.0f);
@@ -25,8 +25,8 @@ public:
         projection = glm::ortho(minX, maxX, minY, maxY,  minZ, maxZ);
     }
 
-    void SetPV()
+    void SetVP()
     {
-        pv = projection * GetViewMatrix();
+        vp = projection * GetViewMatrix();
     }
 };

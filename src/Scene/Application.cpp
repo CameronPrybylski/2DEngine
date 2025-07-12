@@ -25,3 +25,8 @@ void Application::Run()
     }
         */
 }
+
+void Application::AddScene(std::string sceneName, std::shared_ptr<Scene> scene)
+{
+    engine.GetSceneManager()->AddScene(sceneName, scene);
+}

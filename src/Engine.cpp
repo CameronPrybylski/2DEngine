@@ -42,6 +42,11 @@ void Engine::OnUpdate(float dt)
 void Engine::Render()
 {
     renderer.Clear();
+    if(sceneManager->CheckEndScene())
+    {
+        std::string nextScene = sceneManager->GetCurrentScene()->GetNextScene();
+        sceneManager->SwitchTo(nextScene);
+    }
     sceneManager->GetCurrentScene()->DrawObjects(renderer);
 }
 

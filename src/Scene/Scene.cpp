@@ -47,3 +47,9 @@ void Scene::DrawObjects(Renderer& renderer)
         //renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
 }
+
+void Scene::EndScene(std::string nextScene)
+{
+    endScene = true;
+    this->nextScene = nextScene;
+}
