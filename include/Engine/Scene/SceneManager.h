@@ -4,6 +4,7 @@
 
 class SceneManager{
 public:
+    ~SceneManager();
     void AddScene(std::string sceneName, std::shared_ptr<Scene> scene);
     Scene* GetCurrentScene();
     void SwitchTo(std::string sceneName);

@@ -5,11 +5,6 @@
 Engine::Engine()
 {
     sceneManager = std::make_shared<SceneManager>();
-    glm::vec3 gravity;
-    gravity.x = 0.0f;
-    gravity.y = -981.0f;
-    gravity.z = 0.0f;
-    physics.Init(gravity);
 }
 
 Engine::~Engine()
@@ -78,10 +73,10 @@ void Engine::Run()
             OnEvent(event);
         }
 
-        if(dt > 0.016)
-        {
-            dt = 0.016;
-        }
+       if (dt > 0.2f)
+       {
+            dt = 0.016f; // clamp extremely bad delta times
+       }
 
         OnUpdate(dt);
         Render();

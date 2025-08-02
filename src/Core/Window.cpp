@@ -27,6 +27,10 @@ bool Window::Init(const char* title, int width, int height)
         }
 
         glContext = SDL_GL_CreateContext(window);
+        SDL_GL_SetSwapInterval(1);
+        int swapInterval = SDL_GL_GetSwapInterval();
+        std::cout << "VSync is " << (swapInterval == 1 ? "enabled" : "disabled") << std::endl;
+
 
         if (!glContext) {
             std::cerr << "Failed to create GL context: " << SDL_GetError() << std::endl;
