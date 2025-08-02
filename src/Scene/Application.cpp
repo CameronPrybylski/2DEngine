@@ -41,4 +41,6 @@ void Application::AddScene(std::string sceneName, std::shared_ptr<Scene> scene)
 void Application::SetScene(std::string sceneName)
 {
     engine.GetSceneManager()->SwitchTo(sceneName);
+    engine.getPhysicsSystem().ClearBodies();
+    engine.GetSceneManager()->GetCurrentScene()->LoadPhysics(engine.getPhysicsSystem());
 }

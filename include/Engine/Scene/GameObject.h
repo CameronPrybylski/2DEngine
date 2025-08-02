@@ -16,6 +16,7 @@ public:
     virtual void Render(Renderer& renderer, const Camera& camera);
 
     std::shared_ptr<Mesh> mesh;
+    Texture texture;
     Transform transform;
     RigidBodyComponent rigidBody;
     std::string shaderName;

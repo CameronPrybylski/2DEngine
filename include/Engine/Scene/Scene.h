@@ -23,6 +23,8 @@ public:
 
     virtual std::string GetNextScene(){return nextScene;}
 
+    virtual void LoadPhysics(PhysicsSystem& physics);
+
 protected:
     bool endScene = false;
     std::string nextScene;

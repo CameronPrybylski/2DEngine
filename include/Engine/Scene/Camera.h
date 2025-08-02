@@ -23,10 +23,19 @@ public:
     const glm::mat4& GetViewMatrix() const {return view;}
     const glm::mat4& GetViewProjectionMatrix() const {return vp;}
 
+    float GetProjMinX() const {return projMinX;}
+    float GetProjMaxX() const {return projMaxX;}
+
+    void OnUpdate(const glm::vec3& positionChange);
+
 private:
     glm::vec3 viewPosition{0.0f};
     glm::vec3 viewRotation{0.0f};
     glm::mat4 projection;
     glm::mat4 view{1.0f};
     glm::mat4 vp;
+    float projMinX;
+    float projMaxX;
+    float projMinY;
+    float projMaxY;
 };

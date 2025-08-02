@@ -21,6 +21,7 @@ public:
     Window& getWindow(){return window;}
     Input& getInput(){return input;}
     Renderer& getRenderer(){return renderer;}
+    PhysicsSystem& getPhysicsSystem(){return physics;}
     SceneManager* GetSceneManager();
 
 private:

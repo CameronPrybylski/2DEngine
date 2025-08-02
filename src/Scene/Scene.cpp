@@ -53,3 +53,8 @@ void Scene::EndScene(std::string nextScene)
     endScene = true;
     this->nextScene = nextScene;
 }
+
+void Scene::LoadPhysics(PhysicsSystem& physics)
+{
+    
+}

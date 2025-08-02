@@ -1,5 +1,11 @@
 #include <Engine/Scene/SceneManager.h>
 
+
+SceneManager::~SceneManager()
+{
+    scenes.clear();
+}
+
 void SceneManager::AddScene(std::string sceneName, std::shared_ptr<Scene> scene)
 {
     scenes[sceneName] = scene;

@@ -14,6 +14,40 @@ void PhysicsSystem::Init(glm::vec3 gravity)
     this->gravity = gravity;
 }
 
+void PhysicsSystem::RegisterBody(Transform& transform, RigidBodyComponent& rigidBody)
+{
+    PhysicsBody physBod;
+    physBod.transform = &transform;
+    physBod.rigidBody = &rigidBody;
+    physicsBodies.push_back(physBod);
+}
+
+void PhysicsSystem::Update(float dt)
+{
+    for(auto& obj : physicsBodies)
+    {   
+        if(!obj.rigidBody->isStatic)
+        {
+            Integrate(*obj.transform, *obj.rigidBody, dt);
+        }
+    }
+    for(auto& obj : physicsBodies)
+    {
+        if(!obj.rigidBody->isStatic)
+        {
+            for(auto& staticObj : physicsBodies)
+            {
+                if(staticObj.rigidBody->isStatic)
+                //if(staticObj != obj)
+                {   
+                    ResolveCollision(*obj.transform, *obj.rigidBody, *staticObj.transform, *staticObj.rigidBody);
+                }
+
+            }            
+        }
+    }
+}
+
 void PhysicsSystem::Integrate(Transform& objectTransform, RigidBodyComponent& objectRigidBody, float dt)
 {
     this->dt = dt;
