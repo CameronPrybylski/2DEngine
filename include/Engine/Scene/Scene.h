@@ -10,7 +10,9 @@
 
 class Scene {
 public: 
-    virtual void Init(){}
+    Scene(float screenWidth, float screenHeight) : screenHeight(screenHeight), screenWidth(screenWidth) {}
+
+    virtual void Init() = 0;
 
     void AddObject(std::string nameOfObject, std::shared_ptr<GameObject> object);
 
@@ -32,6 +34,8 @@ public:
 
 protected:
     bool endScene = false;
+    float screenWidth;
+    float screenHeight;
     std::string nextScene;
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;
