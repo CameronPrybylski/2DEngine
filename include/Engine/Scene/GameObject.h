@@ -20,6 +20,7 @@ public:
     Transform transform;
     RigidBodyComponent rigidBody;
     std::string shaderName;
+    glm::vec4 color;
 
 
 };

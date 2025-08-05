@@ -38,6 +38,7 @@ target_include_directories(Engine
         ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include
         ${CMAKE_CURRENT_SOURCE_DIR}/external/stb
         ${CMAKE_CURRENT_SOURCE_DIR}/external/glm
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann
 )
 
 # Link SDL2 (and other system libs if needed)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <json.hpp>
 #include <Engine/Core/Input.h>
 #include <Engine/Physics/PhysicsSystem.h>
 #include <Engine/Scene/GameObject.h>
@@ -9,6 +10,8 @@
 
 class Scene {
 public: 
+    virtual void Init(){}
+
     void AddObject(std::string nameOfObject, std::shared_ptr<GameObject> object);
 
     virtual void OnEvent(const Input& input);
@@ -20,6 +23,8 @@ public:
     virtual void EndScene(std::string nextScene);
 
     virtual bool CheckEndScene(){return endScene;}
+
+    virtual void SetEndScene(bool endScene){this->endScene = endScene;}
 
     virtual std::string GetNextScene(){return nextScene;}
 

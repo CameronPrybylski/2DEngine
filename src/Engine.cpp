@@ -39,8 +39,9 @@ void Engine::Render()
     renderer.Clear();
     if(sceneManager->CheckEndScene())
     {
-        std::string nextScene = sceneManager->GetCurrentScene()->GetNextScene();
-        sceneManager->SwitchTo(nextScene);
+        sceneManager->ChangeScene();
+        physics.ClearBodies();
+        sceneManager->GetCurrentScene()->LoadPhysics(physics);
     }
     sceneManager->GetCurrentScene()->DrawObjects(renderer);
 }
