@@ -28,3 +28,11 @@ bool SceneManager::CheckEndScene()
 {
     return currentScene->CheckEndScene();
 }
+
+void SceneManager::ChangeScene()
+{
+    std::string nextScene = currentScene->GetNextScene();
+    currentScene->SetEndScene(false);
+    SwitchTo(nextScene);
+    currentScene->Init();
+}

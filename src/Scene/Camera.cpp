@@ -16,6 +16,9 @@ void Camera::Create(float minX, float maxX, float minY, float maxY, float minZ, 
     projMaxX = maxX;
     projMinY = minY;
     projMaxY = maxY;
+    viewPosition = {0.0f, 0.0f, 0.0f};
+    viewRotation = {0.0f, 0.0f, 0.0f};
+    view = glm::mat4(1.0f);
     SetOrthoProjMat(minX, maxX, minY, maxY, minZ, maxZ);
     SetVP();
 }

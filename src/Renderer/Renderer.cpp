@@ -28,7 +28,7 @@ void Renderer::DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Ca
     glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::DrawTexturedQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader,Texture& texture, glm::vec4 color)
+void Renderer::DrawTexturedQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, Texture& texture, glm::vec4 color)
 {
     shader.Bind();
     mesh.Bind();
