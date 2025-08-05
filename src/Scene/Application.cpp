@@ -16,21 +16,6 @@ bool Application::Create(const char* title, int w, int h)
 void Application::Run()
 {
     engine.Run();
-    /*
-    SDL_GL_SetSwapInterval(1); 
-    while(!engine.getInput().ShutDown())
-    {
-        SDL_Event event;
-        while(engine.getWindow().PollEvent(event))
-        {
-            engine.getInput().OnEvent(event);
-        }
-        engine.getRenderer().Clear();
-        engine.GetSceneManager()->GetCurrentScene()->DrawQuads(engine.getRenderer());
-        
-        engine.getWindow().Update();
-    }
-        */
 }
 
 void Application::AddScene(std::string sceneName, std::shared_ptr<Scene> scene)
@@ -41,6 +26,7 @@ void Application::AddScene(std::string sceneName, std::shared_ptr<Scene> scene)
 void Application::SetScene(std::string sceneName)
 {
     engine.GetSceneManager()->SwitchTo(sceneName);
+    engine.GetSceneManager()->GetCurrentScene()->Init();
     engine.getPhysicsSystem().ClearBodies();
     engine.GetSceneManager()->GetCurrentScene()->LoadPhysics(engine.getPhysicsSystem());
 }
