@@ -18,6 +18,10 @@ public:
         model = glm::scale(model, scale);
         return model;
     }
+    
+    bool operator==(const Transform& other) const {
+        return this->GetModelMatrix() == other.GetModelMatrix();
+    }
 };
 
 struct RigidBodyComponent{

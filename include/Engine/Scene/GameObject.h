@@ -14,6 +14,7 @@ public:
     virtual void Update(float dt);
     virtual void Update(const Input& input, float dt);
     virtual void Render(Renderer& renderer, const Camera& camera);
+    virtual void OnCollision(float dt) {}
 
     std::shared_ptr<Mesh> mesh;
     Texture texture;

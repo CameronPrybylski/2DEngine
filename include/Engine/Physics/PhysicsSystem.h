@@ -12,7 +12,7 @@ public:
 
     void Init(glm::vec3 gravity);
     void SetGravity(glm::vec3 gravity){this->gravity = gravity;}
-    void Update(float dt);
+    std::vector<CollisionEvent> Update(float dt);
     void Integrate(Transform& objectTransform, RigidBodyComponent& objectRigidBody, float dt);
     bool CheckCollision(Transform& objectTransform, Transform& groundTransform);
     void ResolveCollision(Transform& objectTransform, RigidBodyComponent& objectRigidBody, Transform& object2Transform, RigidBodyComponent& object2RigidBody);
