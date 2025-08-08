@@ -22,7 +22,7 @@ void PhysicsSystem::RegisterBody(Transform& transform, RigidBodyComponent& rigid
     physicsBodies.push_back(physBod);
 }
 
-void PhysicsSystem::Update(float dt)
+std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
 {
     for(auto& obj : physicsBodies)
     {   
@@ -46,6 +46,30 @@ void PhysicsSystem::Update(float dt)
             }            
         }
     }
+
+    std::vector<CollisionEvent> collisions;
+    for(int i = 0; i < physicsBodies.size(); i++)
+    {   
+        auto& dynObj1 = physicsBodies[i];
+        if(!dynObj1.rigidBody->isStatic)
+        {
+            for(int j = i + 1; j < physicsBodies.size(); j++)
+            {
+                auto& dynObj2 = physicsBodies[j];
+                if(!dynObj2.rigidBody->isStatic)
+                {
+                    if(CheckCollision(*dynObj1.transform, *dynObj2.transform))
+                    {
+                        CollisionEvent collEvent;
+                        collEvent.body1 = dynObj1;
+                        collEvent.body2 = dynObj2;
+                        collisions.push_back(collEvent);
+                    }
+                }
+            }
+        }
+    }
+    return collisions;
 }
 
 void PhysicsSystem::Integrate(Transform& objectTransform, RigidBodyComponent& objectRigidBody, float dt)
