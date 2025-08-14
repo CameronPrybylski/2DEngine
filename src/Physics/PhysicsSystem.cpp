@@ -37,8 +37,8 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
         {
             for(auto& staticObj : physicsBodies)
             {
-                if(staticObj.rigidBody->isStatic)
-                //if(staticObj != obj)
+                if(staticObj.rigidBody->isStatic && staticObj.transform != obj.transform)
+                //if(staticObj.transform != obj.transform)
                 {   
                     ResolveCollision(*obj.transform, *obj.rigidBody, *staticObj.transform, *staticObj.rigidBody);
                 }
@@ -51,23 +51,25 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
     for(int i = 0; i < physicsBodies.size(); i++)
     {   
         auto& dynObj1 = physicsBodies[i];
-        if(!dynObj1.rigidBody->isStatic)
-        {
+        //if(!dynObj1.rigidBody->isStatic)
+        //{
             for(int j = i + 1; j < physicsBodies.size(); j++)
             {
                 auto& dynObj2 = physicsBodies[j];
-                if(!dynObj2.rigidBody->isStatic)
-                {
+                //if(!dynObj2.rigidBody->isStatic)
+                //{
                     if(CheckCollision(*dynObj1.transform, *dynObj2.transform))
                     {
                         CollisionEvent collEvent;
                         collEvent.body1 = dynObj1;
                         collEvent.body2 = dynObj2;
+                        collEvent.collisionNormalBody1 = GetCollisionNormal(*dynObj1.transform, *dynObj2.transform);
+                        collEvent.collisionNormalBody2 = GetCollisionNormal(*dynObj2.transform, *dynObj1.transform);
                         collisions.push_back(collEvent);
                     }
-                }
+                //}
             }
-        }
+        //}
     }
     return collisions;
 }
@@ -83,10 +85,10 @@ void PhysicsSystem::Integrate(Transform& objectTransform, RigidBodyComponent& ob
 
 bool PhysicsSystem::CheckCollision(Transform& objectTransform, Transform& staticObjectTransform)
 {
-    return  objectTransform.position.x - objectTransform.scale.x / 2 < staticObjectTransform.position.x + staticObjectTransform.scale.x / 2 &&
-            objectTransform.position.x + objectTransform.scale.x / 2 > staticObjectTransform.position.x - staticObjectTransform.scale.x / 2  &&
-            objectTransform.position.y - objectTransform.scale.y / 2 < staticObjectTransform.position.y + staticObjectTransform.scale.y / 2 &&
-            objectTransform.position.y + objectTransform.scale.y / 2 > staticObjectTransform.position.y - staticObjectTransform.scale.y / 2;
+    return  objectTransform.position.x - objectTransform.scale.x / 2 <= staticObjectTransform.position.x + staticObjectTransform.scale.x / 2 &&
+            objectTransform.position.x + objectTransform.scale.x / 2 >= staticObjectTransform.position.x - staticObjectTransform.scale.x / 2  &&
+            objectTransform.position.y - objectTransform.scale.y / 2 <= staticObjectTransform.position.y + staticObjectTransform.scale.y / 2 &&
+            objectTransform.position.y + objectTransform.scale.y / 2 >= staticObjectTransform.position.y - staticObjectTransform.scale.y / 2;
 }
 
 glm::vec2 PhysicsSystem::GetCollisionNormal(Transform& objectTransform, Transform& object2Transform)
@@ -121,8 +123,7 @@ glm::vec2 PhysicsSystem::GetCollisionNormal(Transform& objectTransform, Transfor
 void PhysicsSystem::ResolveCollision(Transform& objectTransform, RigidBodyComponent& objectRigidBody, Transform& object2Transform, RigidBodyComponent& object2RigidBody)
 {
     if(CheckCollision(objectTransform, object2Transform))
-    {
-        
+    {        
         // Calculate half extents and sides
         float aLeft   = objectTransform.position.x - objectTransform.scale.x / 2;
         float aRight  = objectTransform.position.x + objectTransform.scale.x / 2;
