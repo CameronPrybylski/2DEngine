@@ -14,7 +14,7 @@ public:
     virtual void Update(float dt);
     virtual void Update(const Input& input, float dt);
     virtual void Render(Renderer& renderer, const Camera& camera);
-    virtual void OnCollision(float dt) {}
+    virtual void OnCollision(std::shared_ptr<GameObject> collidedObj, glm::vec2 collisionNormal, float dt) {}
 
     std::shared_ptr<Mesh> mesh;
     Texture texture;
@@ -22,6 +22,7 @@ public:
     RigidBodyComponent rigidBody;
     std::string shaderName;
     glm::vec4 color;
-
+    std::string name;
+    std::string type = "";
 
 };
