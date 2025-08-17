@@ -1,11 +1,13 @@
 #pragma once
 
 #include <Engine/Scene/Transform.h>
+#include <string>
 
 struct PhysicsBody 
 {
     Transform* transform;
     RigidBodyComponent* rigidBody;
+    std::string id;
 };
 
 struct CollisionEvent

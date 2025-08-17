@@ -36,6 +36,8 @@ protected:
     bool endScene = false;
     float screenWidth;
     float screenHeight;
+    float leftScreenEdge;
+    float rightScreenEdge;
     std::string nextScene;
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;

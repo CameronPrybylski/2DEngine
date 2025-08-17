@@ -14,11 +14,12 @@ void PhysicsSystem::Init(glm::vec3 gravity)
     this->gravity = gravity;
 }
 
-void PhysicsSystem::RegisterBody(Transform& transform, RigidBodyComponent& rigidBody)
+void PhysicsSystem::RegisterBody(Transform& transform, RigidBodyComponent& rigidBody, std::string id)
 {
     PhysicsBody physBod;
     physBod.transform = &transform;
     physBod.rigidBody = &rigidBody;
+    physBod.id = id;
     physicsBodies.push_back(physBod);
 }
 
@@ -93,6 +94,7 @@ bool PhysicsSystem::CheckCollision(Transform& objectTransform, Transform& static
 
 glm::vec2 PhysicsSystem::GetCollisionNormal(Transform& objectTransform, Transform& object2Transform)
 {
+    /*
     float dx = (objectTransform.position.x - object2Transform.position.x);
     float px = (objectTransform.scale.x + object2Transform.scale.x) - std::abs(dx);
 
@@ -117,6 +119,26 @@ glm::vec2 PhysicsSystem::GetCollisionNormal(Transform& objectTransform, Transfor
     }
 
     return normal;
+    */
+
+    float aLeft   = objectTransform.position.x - objectTransform.scale.x / 2;
+    float aRight  = objectTransform.position.x + objectTransform.scale.x / 2;
+    float aBottom = objectTransform.position.y - objectTransform.scale.y / 2;
+    float aTop    = objectTransform.position.y + objectTransform.scale.y / 2;
+
+    float bLeft   = object2Transform.position.x - object2Transform.scale.x / 2;
+    float bRight  = object2Transform.position.x + object2Transform.scale.x / 2;
+    float bBottom = object2Transform.position.y - object2Transform.scale.y / 2;
+    float bTop    = object2Transform.position.y + object2Transform.scale.y / 2;
+
+    float overlapX = std::min(aRight, bRight) - std::max(aLeft, bLeft);
+    float overlapY = std::min(aTop, bTop) - std::max(aBottom, bBottom);
+
+    if (overlapX < overlapY) {
+        return (objectTransform.position.x < object2Transform.position.x) ? glm::vec2(-1, 0) : glm::vec2(1, 0);
+    } else {
+        return (objectTransform.position.y < object2Transform.position.y) ? glm::vec2(0, -1) : glm::vec2(0, 1);
+    }
 
 }
 
