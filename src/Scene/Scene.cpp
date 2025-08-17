@@ -43,7 +43,11 @@ void Scene::DrawObjects(Renderer& renderer)
 {
     for(auto& obj : objectList)
     {
-        obj->Render(renderer, camera);
+        if(obj->transform.position.x + obj->transform.scale.x / 2 >= leftScreenEdge &&
+           obj->transform.position.x - obj->transform.scale.x / 2 <= rightScreenEdge)
+        {
+            obj->Render(renderer, camera);
+        }
         //renderer.DrawQuad(*obj->mesh, obj->transform, AssetManager::GetShader(obj->shaderName), projection);
     }
 }
