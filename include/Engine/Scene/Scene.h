@@ -38,6 +38,8 @@ protected:
     float screenHeight;
     float leftScreenEdge;
     float rightScreenEdge;
+    float topScreenEdge;
+    float bottomScreenEdge;
     std::string nextScene;
     std::vector<std::shared_ptr<GameObject>> objectList;
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;

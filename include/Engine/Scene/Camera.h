@@ -25,6 +25,8 @@ public:
 
     float GetProjMinX() const {return projMinX;}
     float GetProjMaxX() const {return projMaxX;}
+    float GetProjMinY() const {return projMinY;}
+    float GetProjMaxY() const {return projMaxY;}
 
     void OnUpdate(const glm::vec3& positionChange);
 
