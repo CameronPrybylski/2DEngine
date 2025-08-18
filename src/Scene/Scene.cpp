@@ -43,8 +43,11 @@ void Scene::DrawObjects(Renderer& renderer)
 {
     for(auto& obj : objectList)
     {
-        if(obj->transform.position.x + obj->transform.scale.x / 2 >= leftScreenEdge &&
-           obj->transform.position.x - obj->transform.scale.x / 2 <= rightScreenEdge)
+        if((obj->transform.position.x + obj->transform.scale.x / 2 >= leftScreenEdge &&
+           obj->transform.position.x - obj->transform.scale.x / 2 <= rightScreenEdge) 
+          && 
+          (obj->transform.position.y + obj->transform.scale.y / 2 >= bottomScreenEdge &&
+          obj->transform.position.y - obj->transform.scale.y / 2 <= topScreenEdge))
         {
             obj->Render(renderer, camera);
         }

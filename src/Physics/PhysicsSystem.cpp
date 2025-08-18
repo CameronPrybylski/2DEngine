@@ -52,25 +52,19 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
     for(int i = 0; i < physicsBodies.size(); i++)
     {   
         auto& dynObj1 = physicsBodies[i];
-        //if(!dynObj1.rigidBody->isStatic)
-        //{
-            for(int j = i + 1; j < physicsBodies.size(); j++)
+        for(int j = i + 1; j < physicsBodies.size(); j++)
+        {
+            auto& dynObj2 = physicsBodies[j];
+            if(CheckCollision(*dynObj1.transform, *dynObj2.transform))
             {
-                auto& dynObj2 = physicsBodies[j];
-                //if(!dynObj2.rigidBody->isStatic)
-                //{
-                    if(CheckCollision(*dynObj1.transform, *dynObj2.transform))
-                    {
-                        CollisionEvent collEvent;
-                        collEvent.body1 = dynObj1;
-                        collEvent.body2 = dynObj2;
-                        collEvent.collisionNormalBody1 = GetCollisionNormal(*dynObj1.transform, *dynObj2.transform);
-                        collEvent.collisionNormalBody2 = GetCollisionNormal(*dynObj2.transform, *dynObj1.transform);
-                        collisions.push_back(collEvent);
-                    }
-                //}
+                CollisionEvent collEvent;
+                collEvent.body1 = dynObj1;
+                collEvent.body2 = dynObj2;
+                collEvent.collisionNormalBody1 = GetCollisionNormal(*dynObj1.transform, *dynObj2.transform);
+                collEvent.collisionNormalBody2 = GetCollisionNormal(*dynObj2.transform, *dynObj1.transform);
+                collisions.push_back(collEvent);
             }
-        //}
+        }
     }
     return collisions;
 }
