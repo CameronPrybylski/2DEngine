@@ -39,7 +39,6 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
             for(auto& staticObj : physicsBodies)
             {
                 if(staticObj.rigidBody->isStatic && staticObj.transform != obj.transform)
-                //if(staticObj.transform != obj.transform)
                 {   
                     ResolveCollision(*obj.transform, *obj.rigidBody, *staticObj.transform, *staticObj.rigidBody);
                 }
