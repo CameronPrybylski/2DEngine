@@ -79,10 +79,65 @@ void PhysicsSystem::Integrate(Transform& objectTransform, RigidBodyComponent& ob
 
 bool PhysicsSystem::CheckCollision(Transform& objectTransform, Transform& staticObjectTransform)
 {
+    /*   
+    Each OBB needs:
+        center → the rectangle’s center in world space.
+        halfExtents → half-width and half-height.
+        rotation (radians or degrees).
+        axes → you can compute two normalized direction vectors:
+            xAxis = (cosθ, sinθ)
+            yAxis = (-sinθ, cosθ) (perpendicular)
+    */
+    OBB obb1(objectTransform);
+    OBB obb2(staticObjectTransform);
+
+    glm::vec3 axes[4] = {obb1.xAxis, obb2.xAxis, obb1.yAxis, obb2.yAxis};
+
+    for(auto& axis : axes)
+    {
+        glm::vec2 projection1 = ProjectOBB(obb1, axis);
+        glm::vec2 projection2 = ProjectOBB(obb2, axis);
+        if(!(projection1.y >= projection2.x && projection2.y >= projection1.x))
+        {
+            return false;
+        }
+    }
+
+    return true;
+   
+    //AABB
+    /*
     return  objectTransform.position.x - objectTransform.scale.x / 2 <= staticObjectTransform.position.x + staticObjectTransform.scale.x / 2 &&
             objectTransform.position.x + objectTransform.scale.x / 2 >= staticObjectTransform.position.x - staticObjectTransform.scale.x / 2  &&
             objectTransform.position.y - objectTransform.scale.y / 2 <= staticObjectTransform.position.y + staticObjectTransform.scale.y / 2 &&
             objectTransform.position.y + objectTransform.scale.y / 2 >= staticObjectTransform.position.y - staticObjectTransform.scale.y / 2;
+    */ 
+}
+
+glm::vec2 PhysicsSystem::ProjectOBB(const OBB& obb, glm::vec3 axis)
+{
+    // Get the 4 corners of the OBB
+    glm::vec3 x = obb.xAxis * obb.halfWidth;
+    glm::vec3 y = obb.yAxis * obb.halfHeight;
+    //glm::vec3 z = {0.0f, 0.0f, 0.0f};
+
+    glm::vec3 corners[4] = {
+        obb.center + x + y,
+        obb.center - x + y,
+        obb.center - x - y,
+        obb.center + x - y
+    };
+
+    // Project all corners onto axis
+    float min = glm::dot(corners[0],axis);
+    float max = min;
+    for (int i = 1; i < 4; i++) {
+        float p = glm::dot(corners[i], axis);
+        if (p < min) min = p;
+        if (p > max) max = p;
+    }
+
+    return { min, max };
 }
 
 glm::vec2 PhysicsSystem::GetCollisionNormal(Transform& objectTransform, Transform& object2Transform)

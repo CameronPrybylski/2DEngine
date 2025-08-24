@@ -19,6 +19,7 @@ public:
     glm::vec2 GetCollisionNormal(Transform& objectTransform, Transform& object2Transform);//, RigidBodyComponent& object2RigidBody);
     void RegisterBody(Transform& transform, RigidBodyComponent& rigidBody, std::string id);
     void ClearBodies(){physicsBodies.clear();}
+    glm::vec2 ProjectOBB(const OBB& obb, glm::vec3 axis);
 
 private:
     glm::vec3 gravity;
