@@ -27,12 +27,13 @@ void PhysicsSystem::RegisterBody(Transform& transform, RigidBodyComponent& rigid
 
 std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
 {
-    for(auto& obj : physicsBodies)
+    for(auto& physBod : physicsBodies)
     {
-        if(!obj.rigidBody->isStatic)
+        if(!physBod.rigidBody->isStatic)
         {
-            Integrate(*obj.transform, *obj.rigidBody, dt);
+            Integrate(*physBod.transform, *physBod.rigidBody, dt);
         }
+        physBod.UpdateOBB();
     }
     std::vector<std::pair<PhysicsBody, PhysicsBody>> possibleCollsions = BroadPhaseCollision();
     std::vector<CollisionEvent> collisions;
@@ -61,25 +62,7 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
             }
         }
     }
-    /*
-    for(int i = 0; i < physicsBodies.size(); i++)
-    {   
-        auto& dynObj1 = physicsBodies[i];
-        for(int j = i + 1; j < physicsBodies.size(); j++)
-        {
-            auto& dynObj2 = physicsBodies[j];
-            if(CheckCollision(*dynObj1.transform, *dynObj2.transform))
-            {
-                CollisionEvent collEvent;
-                collEvent.body1 = dynObj1;
-                collEvent.body2 = dynObj2;
-                collEvent.collisionNormalBody1 = GetCollisionNormal(*dynObj1.transform, *dynObj2.transform);
-                collEvent.collisionNormalBody2 = GetCollisionNormal(*dynObj2.transform, *dynObj1.transform);
-                collisions.push_back(collEvent);
-            }
-        }
-    }
-    */
+
     return collisions;
 }
 
@@ -92,93 +75,8 @@ void PhysicsSystem::Integrate(Transform& objectTransform, RigidBodyComponent& ob
     
 }
 
-std::vector<glm::vec3> PhysicsSystem::GetOBBCorners(OBB obb)
-{
-     // Get the 4 corners of the OBB
-    glm::vec3 x = obb.xAxis * obb.halfWidth;
-    glm::vec3 y = obb.yAxis * obb.halfHeight;
-    //glm::vec3 z = {0.0f, 0.0f, 0.0f};
-
-    std::vector<glm::vec3> corners = {
-        obb.center + x + y,
-        obb.center - x + y,
-        obb.center - x - y,
-        obb.center + x - y
-    };
-    return corners;
-}
-
-glm::vec2 GetMinMaxX(std::vector<glm::vec3> obbCorners)
-{
-    float minX = obbCorners[0].x;
-    float maxX = obbCorners[0].x;
-    for(auto& corner : obbCorners)
-    {
-        if(corner.x <= minX)
-        {
-            minX = corner.x;
-        }
-        if(corner.x >= maxX)
-        {
-            maxX = corner.x;
-        }
-    }
-    return {minX, maxX};
-}
-
-std::vector<glm::vec3> PhysicsSystem::GetMinMaxXYZ(std::vector<glm::vec3> obbCorners)
-{
-    float minX = obbCorners[0].x;
-    float maxX = obbCorners[0].x;
-    float minY = obbCorners[0].y;
-    float maxY = obbCorners[0].y;
-    float minZ = obbCorners[0].z;
-    float maxZ = obbCorners[0].z;
-    for(auto& corner : obbCorners)
-    {
-        if(corner.x <= minX)
-        {
-            minX = corner.x;
-        }
-        if(corner.x >= maxX)
-        {
-            maxX = corner.x;
-        }
-        if(corner.y <= minY)
-        {
-            minY = corner.y;
-        }
-        if(corner.y >= maxY)
-        {
-            maxY = corner.y;
-        }
-        if(corner.y <= minZ)
-        {
-            minZ = corner.z;
-        }
-        if(corner.z >= maxZ)
-        {
-            maxZ = corner.z;
-        }
-    }
-    std::vector<glm::vec3> minMax = {
-        {minX, minY, minZ},
-        {maxX, maxY, maxZ}
-    };
-    return minMax;
-}
-
 std::vector<std::pair<PhysicsBody, PhysicsBody>> PhysicsSystem::BroadPhaseCollision()
 {
-    for(auto& physBod : physicsBodies)
-    {
-        physBod.UpdateOBB();
-        std::vector<glm::vec3> minMax = GetMinMaxXYZ(GetOBBCorners(physBod.obb));
-        physBod.obb.minX = minMax[0].x;
-        physBod.obb.maxX = minMax[1].x;
-        physBod.obb.minY = minMax[0].y;
-        physBod.obb.maxY = minMax[1].y;
-    }
     std::sort(physicsBodies.begin(), physicsBodies.end());
     std::vector<std::pair<PhysicsBody, PhysicsBody>> possibleCollisions;
     std::unordered_map<std::string, PhysicsBody> activeList;
@@ -271,25 +169,11 @@ bool PhysicsSystem::CheckCollision(PhysicsBody& physBod1, PhysicsBody& physBod2)
 
 glm::vec2 PhysicsSystem::ProjectOBB(const OBB& obb, glm::vec3 axis)
 {
-   std::vector<glm::vec3> corners = GetOBBCorners(obb);
-    /*
-    // Get the 4 corners of the OBB
-    glm::vec3 x = obb.xAxis * obb.halfWidth;
-    glm::vec3 y = obb.yAxis * obb.halfHeight;
-    //glm::vec3 z = {0.0f, 0.0f, 0.0f};
-
-    glm::vec3 corners[4] = {
-        obb.center + x + y,
-        obb.center - x + y,
-        obb.center - x - y,
-        obb.center + x - y
-    };
-    */
     // Project all corners onto axis
-    float min = glm::dot(corners[0],axis);
+    float min = glm::dot(obb.corners[0],axis);
     float max = min;
     for (int i = 1; i < 4; i++) {
-        float p = glm::dot(corners[i], axis);
+        float p = glm::dot(obb.corners[i], axis);
         if (p < min) min = p;
         if (p > max) max = p;
     }
@@ -400,19 +284,23 @@ void PhysicsSystem::ResolveCollision(PhysicsBody& physBod1, PhysicsBody& physBod
     if (overlapX < overlapY) {
         if (objectTransform.position.x < object2Transform.position.x) {
             objectTransform.position.x -= overlapX;
-            objectRigidBody.velocity.x = 0;
         } else {
             objectTransform.position.x += overlapX;
-            objectRigidBody.velocity.x = 0;
         }
-    } else {
-        if (objectTransform.position.y < object2Transform.position.y) {
+        objectRigidBody.velocity.x = 0;
+    } else if(overlapX > overlapY) {
+        if(objectTransform.position.y < object2Transform.position.y){
             objectTransform.position.y -= overlapY;
-            objectRigidBody.velocity.y = 0;
         } else {
             objectTransform.position.y += overlapY;
-            objectRigidBody.velocity.y = 0;
         }
+        objectRigidBody.velocity.y = 0;
+    }
+    else{
+        objectTransform.position.y = objectRigidBody.previousPosition.y;
+        objectTransform.position.x = objectRigidBody.previousPosition.x;
+        objectRigidBody.velocity.y = 0;
+        objectRigidBody.velocity.x = 0;
     }
     
 }
