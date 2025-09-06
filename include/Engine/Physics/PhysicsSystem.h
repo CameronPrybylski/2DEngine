@@ -2,7 +2,6 @@
 
 //#include <Engine/Scene/GameObject.h>
 #include <Engine/Physics/PhysicsBody.h>
-#include <vector>
 
 class PhysicsSystem {
 
@@ -22,8 +21,6 @@ public:
     void ClearBodies(){physicsBodies.clear();}
     //void SetMinMaxX(float minX, float maxX){this->minX = minX; this->maxX = maxX;}
     glm::vec2 ProjectOBB(const OBB& obb, glm::vec3 axis);
-    std::vector<glm::vec3> GetOBBCorners(OBB obb);
-    std::vector<glm::vec3> GetMinMaxXYZ(std::vector<glm::vec3> obbCorners);
 
 private:
     glm::vec3 gravity;
