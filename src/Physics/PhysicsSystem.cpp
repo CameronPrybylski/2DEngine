@@ -139,6 +139,10 @@ bool PhysicsSystem::CheckCollision(PhysicsBody& physBod1, PhysicsBody& physBod2)
             xAxis = (cosθ, sinθ)
             yAxis = (-sinθ, cosθ) (perpendicular)
     */
+    if(physBod1.transform->position.z != physBod2.transform->position.z)
+    {
+        return false;
+    }
     OBB obb1 = physBod1.obb;
     OBB obb2 = physBod2.obb;
 
