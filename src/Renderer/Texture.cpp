@@ -60,6 +60,7 @@ void Texture::Create(const std::string &filepath)
     if(localBuffer == nullptr)
     {
         std::cerr << "Failed to Load image" << std::endl;
+        std::cerr << "stb_image failed: " << stbi_failure_reason() << std::endl;
     }
     width = stb_w;
     height = stb_h;
