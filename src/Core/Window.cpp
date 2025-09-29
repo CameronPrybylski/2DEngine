@@ -1,4 +1,5 @@
 #include <Engine/Core/Window.h>
+#include <SDL_ttf.h>
 #include <iostream>
 
 Window::Window()
@@ -7,6 +8,7 @@ Window::Window()
 
 Window::~Window()
 {
+    TTF_Quit();
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
@@ -24,6 +26,10 @@ bool Window::Init(const char* title, int width, int height)
         {
             std::cerr << "Error creating window" << SDL_GetError() << std::endl;
             return false;
+        }
+
+        if (TTF_Init() == -1) {
+            std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
         }
 
         glContext = SDL_GL_CreateContext(window);

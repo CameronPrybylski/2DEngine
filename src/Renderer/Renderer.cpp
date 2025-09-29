@@ -1,4 +1,5 @@
 #include <Engine/Renderer/Renderer.h>
+#include <Engine/Renderer/TextTexture.h>
 #include <iostream>
 void checkGLError(const char* label) {
     GLenum err;

@@ -25,6 +25,7 @@ add_library(Engine STATIC
     src/Renderer/Renderer.cpp
     src/Renderer/Shader.cpp
     src/Renderer/Texture.cpp
+    src/Renderer/TextTexture.cpp
     src/Engine.cpp
     external/glad/src/glad.c
     # Add all other .cpp engine files here
@@ -34,6 +35,7 @@ add_library(Engine STATIC
 target_include_directories(Engine
     PUBLIC
         ${SDL2_INCLUDE_DIRS}
+        /opt/homebrew/include/SDL2
         ${CMAKE_CURRENT_SOURCE_DIR}/include           # Engine headers
         ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include
         ${CMAKE_CURRENT_SOURCE_DIR}/external/stb
@@ -44,6 +46,5 @@ target_include_directories(Engine
 # Link SDL2 (and other system libs if needed)
 target_link_libraries(Engine
     PRIVATE ${SDL2_LIBRARIES}
+    /opt/homebrew/lib/libSDL2_ttf.dylib
 )
-
-

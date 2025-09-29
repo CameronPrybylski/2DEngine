@@ -10,11 +10,11 @@ public:
     Texture(const std::string& filepath);
     ~Texture();
 
-    void Create(const std::string& filepath);
-    void Bind(unsigned int slot = 0);
-    void Unbind();
+    virtual void Create(const std::string& filepath);
+    virtual void Bind(unsigned int slot = 0);
+    virtual void Unbind();
 
-private:
+protected:
     unsigned int ID;
     unsigned int width, height, BPP;
     std::string filepath;
