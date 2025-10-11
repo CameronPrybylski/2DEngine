@@ -97,3 +97,8 @@ void Texture::Unbind()
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void Texture::Delete()
+{
+    glDeleteTextures(1, &ID);
+}
