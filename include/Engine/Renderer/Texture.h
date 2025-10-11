@@ -13,6 +13,7 @@ public:
     virtual void Create(const std::string& filepath);
     virtual void Bind(unsigned int slot = 0);
     virtual void Unbind();
+    virtual void Delete();
 
 protected:
     unsigned int ID;
