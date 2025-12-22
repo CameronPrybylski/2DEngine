@@ -48,17 +48,21 @@ std::vector<CollisionEvent> PhysicsSystem::Update(float dt)
             collEvent.collisionNormalBody2 = GetCollisionNormal(possibleCollision.second, possibleCollision.first);
             collisions.push_back(collEvent);
 
-            if((possibleCollision.first.rigidBody->isStatic && !possibleCollision.second.rigidBody->isStatic) ||
-            (!possibleCollision.first.rigidBody->isStatic && possibleCollision.second.rigidBody->isStatic))
+            if(possibleCollision.first.rigidBody->isStatic)
             {
-                if(possibleCollision.second.rigidBody->isStatic)
-                {
-                    ResolveCollision(possibleCollision.first, possibleCollision.second);
-                }
-                else
-                {
-                    ResolveCollision(possibleCollision.second, possibleCollision.first);
-                }
+                ResolveCollision(possibleCollision.second, possibleCollision.first);
+            }
+            else if(possibleCollision.second.rigidBody->isStatic)
+            {
+                ResolveCollision(possibleCollision.first, possibleCollision.second);
+            }
+            else if(possibleCollision.first.rigidBody->mass < possibleCollision.second.rigidBody->mass)
+            {
+                ResolveCollision(possibleCollision.first, possibleCollision.second);
+            }
+            else
+            {
+                ResolveCollision(possibleCollision.second, possibleCollision.first);
             }
         }
     }
@@ -286,25 +290,32 @@ void PhysicsSystem::ResolveCollision(PhysicsBody& physBod1, PhysicsBody& physBod
 
     // Resolve along smallest axis
     if (overlapX < overlapY) {
-        if (objectTransform.position.x < object2Transform.position.x) {
+        
+        if(objectTransform.position.x < object2Transform.position.x)
+        {
             objectTransform.position.x -= overlapX;
-        } else {
+        } 
+        else 
+        {
             objectTransform.position.x += overlapX;
         }
-        objectRigidBody.velocity.x = 0;
-    } else if(overlapX > overlapY) {
-        if(objectTransform.position.y < object2Transform.position.y){
+    } 
+    else if(overlapX > overlapY)
+    {
+        if(objectTransform.position.y < object2Transform.position.y)
+        {
             objectTransform.position.y -= overlapY;
-        } else {
+        } 
+        else 
+        {
             objectTransform.position.y += overlapY;
         }
-        objectRigidBody.velocity.y = 0;
     }
-    else{
+    else
+    {
         objectTransform.position.y = objectRigidBody.previousPosition.y;
         objectTransform.position.x = objectRigidBody.previousPosition.x;
         objectRigidBody.velocity.y = 0;
         objectRigidBody.velocity.x = 0;
     }
-    
 }
