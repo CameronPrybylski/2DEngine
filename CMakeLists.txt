@@ -4,8 +4,11 @@ project(Engine)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find SDL2
+# ----------------------------
+# SDL2 + SDL2_ttf (modern way)
+# ----------------------------
 find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 # Define the Engine static library
 add_library(Engine STATIC
@@ -34,8 +37,8 @@ add_library(Engine STATIC
 # Include directories
 target_include_directories(Engine
     PUBLIC
-        ${SDL2_INCLUDE_DIRS}
-        /opt/homebrew/include/SDL2
+        #${SDL2_INCLUDE_DIRS}
+        #/opt/homebrew/include/SDL2
         ${CMAKE_CURRENT_SOURCE_DIR}/include           # Engine headers
         ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include
         ${CMAKE_CURRENT_SOURCE_DIR}/external/stb
@@ -45,6 +48,9 @@ target_include_directories(Engine
 
 # Link SDL2 (and other system libs if needed)
 target_link_libraries(Engine
-    PRIVATE ${SDL2_LIBRARIES}
-    /opt/homebrew/lib/libSDL2_ttf.dylib
+    PUBLIC 
+        #${SDL2_LIBRARIES}
+        #/opt/homebrew/lib/libSDL2_ttf.dylib
+        SDL2::SDL2
+        SDL2_ttf::SDL2_ttf
 )
