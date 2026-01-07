@@ -8,27 +8,30 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # SDL2 + SDL2_ttf (modern way)
 # ----------------------------
 find_package(SDL2 REQUIRED)
-find_package(SDL2_ttf REQUIRED)
 
-# ------------------------------------
-# Normalize SDL2 targets (macOS vs WSL)
-# ------------------------------------
-if (TARGET SDL2::SDL2)
-    set(SDL2_TARGET SDL2::SDL2)
-else()
+if (NOT TARGET SDL2::SDL2)
     add_library(SDL2::SDL2 INTERFACE IMPORTED)
     target_include_directories(SDL2::SDL2 INTERFACE ${SDL2_INCLUDE_DIRS})
     target_link_libraries(SDL2::SDL2 INTERFACE ${SDL2_LIBRARIES})
-    set(SDL2_TARGET SDL2::SDL2)
 endif()
 
-if (TARGET SDL2_ttf::SDL2_ttf)
-    set(SDL2_TTF_TARGET SDL2_ttf::SDL2_ttf)
-else()
+# ----------------------------
+# SDL2_ttf
+# ----------------------------
+find_package(SDL2_ttf CONFIG QUIET)
+
+if (NOT SDL2_ttf_FOUND)
+    # Fallback for Linux / WSL (apt packages)
+    find_path(SDL2_TTF_INCLUDE_DIR SDL2/SDL_ttf.h)
+    find_library(SDL2_TTF_LIBRARY SDL2_ttf)
+
+    if (NOT SDL2_TTF_INCLUDE_DIR OR NOT SDL2_TTF_LIBRARY)
+        message(FATAL_ERROR "SDL2_ttf not found")
+    endif()
+
     add_library(SDL2_ttf::SDL2_ttf INTERFACE IMPORTED)
-    target_include_directories(SDL2_ttf::SDL2_ttf INTERFACE ${SDL2_TTF_INCLUDE_DIRS})
-    target_link_libraries(SDL2_ttf::SDL2_ttf INTERFACE ${SDL2_TTF_LIBRARIES})
-    set(SDL2_TTF_TARGET SDL2_ttf::SDL2_ttf)
+    target_include_directories(SDL2_ttf::SDL2_ttf INTERFACE ${SDL2_TTF_INCLUDE_DIR})
+    target_link_libraries(SDL2_ttf::SDL2_ttf INTERFACE ${SDL2_TTF_LIBRARY})
 endif()
 
 # Define the Engine static library
@@ -72,6 +75,6 @@ target_link_libraries(Engine
     PUBLIC 
         #${SDL2_LIBRARIES}
         #/opt/homebrew/lib/libSDL2_ttf.dylib
-        ${SDL2_TARGET}
-        ${SDL2_TTF_TARGET}
+        SDL2::SDL2
+        SDL2_ttf::SDL2_ttf
 )
