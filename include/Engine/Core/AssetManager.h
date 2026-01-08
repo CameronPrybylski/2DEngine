@@ -3,6 +3,8 @@
 #include <Engine/Renderer/Shader.h>
 #include <Engine/Renderer/QuadMesh.h>
 
+#include <memory>
+
 class AssetManager{
 public:
     static Shader& LoadShader(const std::string& name, const char* vsPath, const char* fsPath) {

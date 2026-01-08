@@ -1,5 +1,6 @@
 #include <Engine/Physics/PhysicsSystem.h>
 #include <iostream>
+#include <algorithm>
 
 PhysicsSystem::PhysicsSystem()
 {
