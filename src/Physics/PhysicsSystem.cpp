@@ -87,11 +87,15 @@ std::vector<std::pair<PhysicsBody, PhysicsBody>> PhysicsSystem::BroadPhaseCollis
     std::unordered_map<std::string, PhysicsBody> activeList;
     for(auto& physObj : physicsBodies)
     {
-        for(auto& activeObj : activeList)
+        for(auto activeObj = activeList.begin(); activeObj != activeList.end(); )
         {
-            if(activeObj.second.obb.maxX < physObj.obb.minX)
+            if(activeObj->second.obb.maxX < physObj.obb.minX)
             {
-                activeList.erase(activeObj.first);
+                activeObj = activeList.erase(activeObj);
+            }
+            else
+            {
+                activeObj++;
             }
         }
         for(auto& activeObj : activeList)
