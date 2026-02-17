@@ -45,6 +45,8 @@ add_library(Engine STATIC
     src/Scene/Scene.cpp
     src/Scene/Application.cpp
     src/Scene/SceneManager.cpp
+    src/Scene/LetterText.cpp
+    src/Scene/StringText.cpp
     src/Renderer/Vao.cpp
     src/Renderer/Vbo.cpp
     src/Renderer/Ibo.cpp
