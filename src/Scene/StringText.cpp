@@ -18,6 +18,11 @@ StringText::StringText(std::string letters, glm::vec3 position, glm::vec4 color,
     this->fontSize = fontSize;
     this->fontPath = fontPath;
     this->color = color;
+    this->text = letters;
+}
+
+void StringText::Init()
+{
     SetTextSizeAndPos();
 }
 
@@ -75,6 +80,6 @@ void StringText::ChangeText(std::string newLetters)
         s = newLetters[i];
         this->letters.push_back(std::make_shared<LetterText>(color, fontPath, s));
     }
-
+    this->text = newLetters;
     SetTextSizeAndPos();
 }
