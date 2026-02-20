@@ -18,6 +18,11 @@ StringText::StringText(std::string letters, glm::vec3 position, glm::vec4 color,
     this->fontSize = fontSize;
     this->fontPath = fontPath;
     this->color = color;
+    this->text = letters;
+}
+
+void StringText::Init()
+{
     SetTextSizeAndPos();
 }
 
@@ -35,8 +40,6 @@ void StringText::SetTextSizeAndPos()
 
     for(int i = 0; i < letters.size(); i++)
     {
-        letters[i]->SetPosition(this->transform.position);
-        letters[i]->SetScale(glm::vec3(float(fontSize), float(fontSize)*2, 0.0f));
         SetLetterTextSizeAndPos(letters[i]);
         this->transform.position.x += letters[i]->transform.scale.x;
     }
@@ -48,7 +51,9 @@ void StringText::SetTextSizeAndPos()
 void StringText::SetLetterTextSizeAndPos(std::shared_ptr<LetterText> letter)
 {
     std::set<std::string> shrinkHalfLetters = {"I", " ", "i", "l", ":", ".", "!"};
-    std::set<std::string> shrinkThreeQLetters = {"t"};
+    std::set<std::string> shrinkThreeQLetters = {"t", "f"};
+    letter->SetPosition(this->transform.position);
+    letter->SetScale(glm::vec3(float(fontSize), float(fontSize)*2, 0.0f));
     if(shrinkHalfLetters.find(letter->GetText()) != shrinkHalfLetters.end())
     {
         letter->transform.scale.x /= 2;
@@ -59,7 +64,7 @@ void StringText::SetLetterTextSizeAndPos(std::shared_ptr<LetterText> letter)
         letter->transform.scale.x *= 0.75f;
         letter->SetPosition(this->transform.position - glm::vec3{letter->transform.scale.x / 6, 0.0f, 0.0f});
     }
-    else if(letter->GetText() == "m" || letter->GetText() == "M")
+    else if(letter->GetText() == "m" || letter->GetText() == "M" || letter->GetText() == "w")
     {
         letter->transform.scale.x *= 1.5f;
         letter->SetPosition(this->transform.position + glm::vec3{letter->transform.scale.x * 0.15f, 0.0f, 0.0f});
@@ -75,6 +80,6 @@ void StringText::ChangeText(std::string newLetters)
         s = newLetters[i];
         this->letters.push_back(std::make_shared<LetterText>(color, fontPath, s));
     }
-
+    this->text = newLetters;
     SetTextSizeAndPos();
 }

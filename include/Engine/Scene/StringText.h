@@ -13,6 +13,8 @@ public:
 
     void SetLetterTextSizeAndPos(std::shared_ptr<LetterText> letter);
 
+    virtual void Init();
+
     virtual void ChangeText(std::string newLetters);
 
     int GetFontSize(){return fontSize;}
@@ -23,6 +25,8 @@ public:
 
     std::string GetFontPath(){return fontPath;}
 
+    std::string GetText(){return this->text;}
+
 protected:
     std::vector<std::shared_ptr<LetterText>> letters;
     int fontSize;
@@ -30,5 +34,6 @@ protected:
     static std::string lowerLetters;
     static std::string upperLetters;
     glm::vec3 endPosition;
+    std::string text;
 
 };
