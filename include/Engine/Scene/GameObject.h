@@ -16,6 +16,11 @@ public:
     virtual void Render(Renderer& renderer, const Camera& camera);
     virtual void OnCollision(std::shared_ptr<GameObject> collidedObj, glm::vec2 collisionNormal, float dt) {}
 
+    virtual bool operator<(const GameObject& other)
+    {
+        return transform.position.z < other.transform.position.z;
+    }
+
     std::shared_ptr<Mesh> mesh;
     Texture texture;
     Transform transform;
