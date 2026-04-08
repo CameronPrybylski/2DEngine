@@ -25,8 +25,11 @@ bool Engine::Create(const char* title, int w, int h)
 
 void Engine::OnEvent(const SDL_Event& event)
 {
-    input.OnEvent(event);
-    sceneManager->GetCurrentScene()->OnEvent(input);
+    if(event.type != SDL_TEXTINPUT)
+    {
+        input.OnEvent(event);
+        sceneManager->GetCurrentScene()->OnEvent(input);
+    }
 }
 
 void Engine::OnUpdate(float dt)
