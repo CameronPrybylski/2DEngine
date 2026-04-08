@@ -69,6 +69,11 @@ void StringText::SetLetterTextSizeAndPos(std::shared_ptr<LetterText> letter)
         letter->transform.scale.x *= 1.5f;
         letter->SetPosition(this->transform.position + glm::vec3{letter->transform.scale.x * 0.15f, 0.0f, 0.0f});
     }
+    else if(letter->GetText() == "G" || letter->GetText() == "N")
+    {
+        letter->transform.scale.x *= 1.15f;
+        letter->SetPosition(this->transform.position + glm::vec3{letter->transform.scale.x * 0.05f, 0.0f, 0.0f});
+    }
 }
 
 void StringText::ChangeText(std::string newLetters)
