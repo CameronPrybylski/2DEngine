@@ -7,4 +7,6 @@ public:
     QuadMesh();
     ~QuadMesh();
 
+    virtual void SetVertices(std::vector<float> vertices){}
+
 };

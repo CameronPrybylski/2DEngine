@@ -31,6 +31,8 @@ public:
 
     int GetIndexCount() const {return ibo.GetIndexCount();}
 
+    virtual void SetVertices(std::vector<float> vertices) = 0;
+
 protected:
     Vao vao;
     Vbo vbo;
