@@ -17,6 +17,7 @@ public:
     Renderer();
     ~Renderer();
     void DrawQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
+    void DrawBatch(const Mesh& mesh, const Camera& camera, Shader& shader, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
     void DrawTexturedQuad(const Mesh& mesh, const Transform& modelMatrix, const Camera& camera, Shader& shader, Texture& texture, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
     void DrawTexturedBatch(const Mesh& mesh, const Camera& camera, Shader& shader, Texture& texture, glm::vec4 color = {0.0f, 0.0f, 0.0f, 0.0f});
     void Clear();
