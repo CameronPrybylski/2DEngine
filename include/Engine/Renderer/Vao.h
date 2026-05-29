@@ -10,6 +10,7 @@ public:
     ~Vao();
     void Create();
     void LinkVbo(Vbo& vbo, unsigned int layout);
+    void LinkBatchVbo(Vbo& vbo, unsigned int layout);
     void Bind() const;
     void Unbind() const;
     void Delete();

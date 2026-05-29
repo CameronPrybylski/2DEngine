@@ -31,6 +31,21 @@ void Vao::LinkVbo(Vbo& vbo, unsigned int layout)
     vbo.Unbind();
 }
 
+void Vao::LinkBatchVbo(Vbo& vbo, unsigned int layout)
+{
+    vbo.Bind();
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) 0); // Position Coord
+    
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (2 * sizeof(float))); // Texture Coord
+
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (4 * sizeof(float))); // Texture Index
+    
+    vbo.Unbind();
+}
+
 void Vao::Bind() const
 {
     glBindVertexArray(ID);

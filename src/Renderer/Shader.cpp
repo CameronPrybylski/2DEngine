@@ -116,6 +116,17 @@ void Shader::setUniform1i(const char* uniformName, int value){
 	glUniform1i(uniformLoc, value);
 }
 
+void Shader::setUniform1iv(const char* uniformName, int numOfInd)
+{
+	int vTex[numOfInd];
+	for(int i = 0; i < numOfInd; ++i)
+	{
+		vTex[i] = i;
+	}
+	int uniformLoc = getUniformLocation(uniformName);
+	glUniform1iv(uniformLoc, numOfInd, vTex);
+}
+
 void Shader::setUniform4f(const char* uniformName, float v0, float v1, float v2, float v3){
 	int uniformLoc = getUniformLocation(uniformName);
 	glUniform4f(uniformLoc, v0, v1, v2, v3);

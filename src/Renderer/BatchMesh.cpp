@@ -19,7 +19,7 @@ void BatchMesh::SetVertices(std::vector<float> vertices)
     };
 
 
-    for(int i = 0; i < vertices.size() / 16; ++i)
+    for(int i = 0; i < vertices.size() / 20; ++i)
     {
         for(int j = 0; j < 6; ++j)
         {
@@ -36,7 +36,7 @@ void BatchMesh::SetVertices(std::vector<float> vertices)
     vbo.Bind();
     ibo.Bind();
 
-    vao.LinkVbo(vbo, 0);
+    vao.LinkBatchVbo(vbo, 0);
 
     vao.Unbind();
     vbo.Unbind();
