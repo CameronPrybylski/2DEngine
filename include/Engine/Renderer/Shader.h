@@ -34,5 +34,6 @@ public:
 	int getUniformLocation(const char* uniformName);
 	void setUniform4f(const char* uniformName, float v0, float v1, float v2, float v3);
 	void setUniform1i(const char* uniformName, int value);
+	void setUniform1iv(const char* uniformName, int numOfInd);
 	void setUniformMat4f(const char* uniformName, const glm::mat4& matrix);
 };

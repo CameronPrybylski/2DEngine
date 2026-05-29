@@ -15,6 +15,8 @@ public:
     virtual void Unbind();
     virtual void Delete();
 
+    virtual void PrintID();
+
 protected:
     unsigned int ID;
     unsigned int width, height, BPP;

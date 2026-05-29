@@ -57,17 +57,20 @@ void Renderer::DrawTexturedQuad(const Mesh& mesh, const Transform& modelMatrix, 
     glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::DrawTexturedBatch(const Mesh& mesh, const Camera& camera, Shader& shader, Texture& texture, glm::vec4 color)
+void Renderer::DrawTexturedBatch(const Mesh& mesh, const Camera& camera, Shader& shader, std::vector<Texture>& textures, glm::vec4 color)
 {
     shader.Bind();
     mesh.Bind();
 
-    texture.Bind();
+    for(int i = 0; i < textures.size(); ++i)
+    {
+        textures[i].Bind(i);
+    }
 
     glm::mat4 mvp = camera.GetViewProjectionMatrix();
     shader.setUniformMat4f("u_MVP", mvp);
     shader.setUniform4f("u_Color", color.x, color.y, color.z, color.w);
-    shader.setUniform1i("u_Texture", 0);
+    shader.setUniform1iv("u_Textures", 16);
     
     glDrawElements(GL_TRIANGLES, mesh.GetIndexCount(), GL_UNSIGNED_INT, 0);
 }

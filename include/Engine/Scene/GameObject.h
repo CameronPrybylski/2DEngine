@@ -16,6 +16,8 @@ public:
     virtual void Render(Renderer& renderer, const Camera& camera);
     virtual void OnCollision(std::shared_ptr<GameObject> collidedObj, glm::vec2 collisionNormal, float dt) {}
 
+    bool IsBatched(){return batched;}
+
     std::shared_ptr<Mesh> mesh;
     Texture texture;
     Transform transform;
@@ -24,5 +26,6 @@ public:
     glm::vec4 color;
     std::string name;
     std::string type = "";
+    bool batched = false;
 
 };

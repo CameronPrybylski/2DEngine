@@ -45,5 +45,6 @@ protected:
     std::unordered_map<std::string, std::shared_ptr<GameObject>> objectMap;
     std::vector<std::shared_ptr<GameObject>> dynamicObjects;
     std::vector<std::shared_ptr<GameObject>> staticObjects;
+    std::unordered_map<std::string, std::shared_ptr<GameObject>> nonDrawnObjects;
     Camera camera;
 };
